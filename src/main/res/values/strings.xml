@@ -12,7 +12,7 @@
 <resources>
     <string name="app_name">APHAccountLibrary</string>
     <string name="account_name">APHAccountLibrary</string>
-    <string name="account_type">cn.com.firstcare</string>
+    <string name="account_type">cn.com.firstcare.account</string>
 
     <string name="ui_activity_authenticating">Authenticating\u2026</string>
     <!-- Message shown in dialog if the username or password is invalid. -->

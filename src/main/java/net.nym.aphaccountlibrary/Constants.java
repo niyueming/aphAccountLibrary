@@ -22,10 +22,10 @@ public class Constants {
      * Account type string.
      * 同R.string.account_type
      */
-    public static final String ACCOUNT_TYPE = "cn.com.firstcare";
+    public static final String ACCOUNT_TYPE = "cn.com.firstcare.account";
 
     /**
      * Authtoken type string.
      */
-    public static final String AUTHTOKEN_TYPE = "cn.com.firstcare";
+    public static final String AUTHTOKEN_TYPE = "cn.com.firstcare.account";
 }
