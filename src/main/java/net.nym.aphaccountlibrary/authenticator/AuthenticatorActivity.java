@@ -30,6 +30,7 @@ import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import net.nym.accountlibrary.AccountUtils;
 import net.nym.aphaccountlibrary.Constants;
 import net.nym.aphaccountlibrary.R;
 
@@ -54,7 +55,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
     /** The tag used to log to adb console. */
     private static final String TAG = "AuthenticatorActivity";
-    private AccountManager mAccountManager;
+//    private AccountManager mAccountManager;
 
     /** Keep track of the login task so can cancel it if requested */
     private UserLoginTask mAuthTask = null;
@@ -93,7 +94,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
 
         Log.i(TAG, "onCreate(" + icicle + ")");
         super.onCreate(icicle);
-        mAccountManager = AccountManager.get(this);
+//        mAccountManager = AccountManager.get(this);
         Log.i(TAG, "loading data from Intent");
         final Intent intent = getIntent();
         mUsername = intent.getStringExtra(PARAM_USERNAME);
@@ -168,7 +169,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     private void finishConfirmCredentials(boolean result) {
         Log.i(TAG, "finishConfirmCredentials()");
         final Account account = new Account(mUsername, Constants.ACCOUNT_TYPE);
-        mAccountManager.setPassword(account, mPassword);
+        AccountUtils.setPassword(this,account,mPassword);
+//        mAccountManager.setPassword(account, mPassword);
         final Intent intent = new Intent();
         intent.putExtra(AccountManager.KEY_BOOLEAN_RESULT, result);
         setAccountAuthenticatorResult(intent.getExtras());
@@ -189,11 +191,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         Log.i(TAG, "finishLogin()");
         final Account account = new Account(mUsername, Constants.ACCOUNT_TYPE);
         if (mRequestNewAccount) {
-            mAccountManager.addAccountExplicitly(account, mPassword, null);
-            mAccountManager.setAuthToken(account,Constants.AUTHTOKEN_TYPE,authToken);
+            AccountUtils.addAccount(this,account,mPassword,null);
+            AccountUtils.setAuthToken(this,account,Constants.AUTHTOKEN_TYPE,authToken);
+//            AccountUtils.setSyncAutomatically(account,ContactsContract.AUTHORITY);//同步通讯录
+
+//            mAccountManager.addAccountExplicitly(account, mPassword, null);
+//            mAccountManager.setAuthToken(account,Constants.AUTHTOKEN_TYPE,authToken);
 //            ContentResolver.setSyncAutomatically(account, ContactsContract.AUTHORITY, true);
         } else {
-            mAccountManager.setPassword(account, mPassword);
+            AccountUtils.setPassword(this,account,mPassword);
+//            mAccountManager.setPassword(account, mPassword);
         }
         final Intent intent = new Intent();
         intent.putExtra(AccountManager.KEY_ACCOUNT_NAME, mUsername);
